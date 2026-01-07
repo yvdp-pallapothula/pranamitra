@@ -10,9 +10,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
         .gradient-text { background: linear-gradient(90deg, #059669, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-link { position: relative; }
+        .nav-link { position: relative; transition: color 0.3s; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: #10b981; transition: width 0.3s; }
         .nav-link:hover::after { width: 100%; }
 
@@ -21,17 +21,18 @@
         #main-wrapper { display: none; }
 
         /* Mobile Menu */
-        #mobile-menu { transition: all 0.3s ease-in-out; max-height: 0; overflow: hidden; }
-        #mobile-menu.active { max-height: 500px; border-bottom: 1px solid #e5e7eb; }
+        #mobile-menu { transition: all 0.3s ease-in-out; max-height: 0; overflow: hidden; opacity: 0; }
+        #mobile-menu.active { max-height: 500px; opacity: 1; border-bottom: 1px solid #e5e7eb; padding-bottom: 20px; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800">
 
     <div id="login-gate">
         <div class="text-center p-10 glass border border-stone-200 rounded-3xl shadow-xl max-w-[90%] w-[400px]">
-            <h1 class="text-3xl font-bold gradient-text mb-4">PranaMitra 🌿</h1>
-            <p class="text-stone-600 mb-8 text-sm">Please sign in to access your yoga journey.</p>
+            <h1 class="text-4xl font-bold gradient-text mb-4">PranaMitra 🌿</h1>
+            <p class="text-stone-600 mb-8 text-sm font-medium uppercase tracking-wider">Authentication Required</p>
             <div id="buttonDiv" class="flex justify-center"></div>
+            <p class="mt-6 text-[10px] text-stone-400">Secure connection via Google Identity</p>
         </div>
     </div>
 
@@ -41,43 +42,41 @@
                 <div class="flex items-center gap-8">
                     <h1 class="text-2xl font-bold gradient-text cursor-pointer" onclick="showPage('home')">PranaMitra 🌿</h1>
                     <div class="hidden lg:flex gap-6 text-sm font-semibold uppercase tracking-wider">
-                        <a href="#" onclick="showPage('beginner')" class="nav-link hover:text-emerald-600 transition">Beginner</a>
-                        <a href="#" onclick="showPage('advanced')" class="nav-link hover:text-emerald-600 transition">Advanced</a>
-                        <a href="#" onclick="showPage('pranayama')" class="nav-link hover:text-emerald-600 transition">Pranayama</a>
-                        <a href="#" onclick="showPage('members')" class="nav-link hover:text-emerald-600 transition">Yoga Community</a>
-                        <a href="#" onclick="showPage('live')" class="hover:text-emerald-600 transition text-emerald-500 font-bold">Live Classes</a>
+                        <a href="#" onclick="showPage('beginner')" class="nav-link hover:text-emerald-600">Beginner</a>
+                        <a href="#" onclick="showPage('advanced')" class="nav-link hover:text-emerald-600">Advanced</a>
+                        <a href="#" onclick="showPage('pranayama')" class="nav-link hover:text-emerald-600">Pranayama</a>
+                        <a href="#" onclick="showPage('members')" class="nav-link hover:text-emerald-600">Yoga Community</a>
+                        <a href="#" onclick="showPage('live')" class="text-emerald-500 font-bold hover:text-emerald-600">Live Classes</a>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <div class="relative hidden sm:block w-48">
+                    <div class="relative hidden sm:block w-48 lg:w-64">
                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400"></i>
-                        <input type="text" id="asanaSearch" placeholder="Search..." 
-                            class="w-full pl-10 pr-4 py-2 rounded-full border border-stone-200 bg-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
-                            onkeyup="handleSearch(this.value)">
+                        <input type="text" id="asanaSearch" placeholder="Search asanas..." class="w-full pl-10 pr-4 py-2 rounded-full border border-stone-200 bg-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition" onkeyup="handleSearch(this.value)">
                     </div>
-                    <button onclick="toggleMenu()" class="lg:hidden p-2 text-stone-600">
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 text-stone-600 focus:outline-none">
                         <i data-lucide="menu"></i>
                     </button>
                 </div>
             </div>
 
             <div id="mobile-menu" class="lg:hidden bg-white px-6">
-                <div class="flex flex-col gap-4 py-6 font-semibold text-stone-600">
-                    <a href="#" onclick="showPage('beginner'); toggleMenu()">Beginner</a>
-                    <a href="#" onclick="showPage('advanced'); toggleMenu()">Advanced</a>
-                    <a href="#" onclick="showPage('pranayama'); toggleMenu()">Pranayama</a>
-                    <a href="#" onclick="showPage('members'); toggleMenu()">Yoga Community</a>
-                    <a href="#" onclick="showPage('live'); toggleMenu()" class="text-emerald-500">Live Classes</a>
+                <div class="flex flex-col gap-5 py-6 font-semibold text-stone-700">
+                    <a href="#" onclick="showPage('beginner'); toggleMenu()">Beginner Practices</a>
+                    <a href="#" onclick="showPage('advanced'); toggleMenu()">Advanced Mastery</a>
+                    <a href="#" onclick="showPage('pranayama'); toggleMenu()">Pranayama (Breathing)</a>
+                    <a href="#" onclick="showPage('members'); toggleMenu()">Community Members</a>
+                    <a href="#" onclick="showPage('live'); toggleMenu()" class="text-emerald-600">Live Sessions</a>
                 </div>
             </div>
         </nav>
 
-        <main class="pt-24 pb-12">
+        <main class="pt-24 pb-12 min-h-screen">
             <section id="home-page" class="page-content">
                 <div class="max-w-7xl mx-auto px-6 py-12 text-center">
-                    <h2 class="text-5xl md:text-7xl font-bold mb-6">Elevate Your Body & Soul ✨</h2>
-                    <p class="text-xl text-stone-600 mb-12 max-w-2xl mx-auto">Master the art of yoga from the comfort of your home.</p>
+                    <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">Elevate Your <br class="hidden md:block">Body & Soul ✨</h2>
+                    <p class="text-xl text-stone-600 mb-12 max-w-2xl mx-auto">Master the art of yoga from the comfort of your home. Your health is your greatest wealth.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
                         <div class="p-8 bg-white rounded-3xl shadow-sm border border-stone-100">
@@ -97,15 +96,20 @@
                         </div>
                     </div>
 
-                    <div class="max-w-4xl mx-auto bg-stone-100 rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-32 h-32 rounded-full bg-emerald-200 overflow-hidden flex-shrink-0 border-4 border-white shadow-md">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Yugandhar" alt="Founder" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=YP'">
+                    <div class="max-w-4xl mx-auto bg-stone-100 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+                        <div class="w-40 h-40 rounded-full bg-emerald-200 overflow-hidden flex-shrink-0 border-4 border-white shadow-lg">
+                            <img src="its.jpeg" alt="Yugandhar Pallapothula" class="w-full h-full object-cover" onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=YP'">
                         </div>
                         <div class="text-left">
-                            <h4 class="text-2xl font-bold mb-2 text-emerald-900">The Path to Prana 🌿</h4>
-                            <p class="text-stone-600 italic leading-relaxed">"PranaMitra is a dedicated platform designed to help you maintain a balanced, healthy life."</p>
-                            <p class="mt-4 font-bold text-emerald-700">— Yugandhar Pallapothula</p>
-                            <p class="text-xs text-stone-400 uppercase tracking-widest font-semibold">Founder & Health Visionary</p>
+                            <h4 class="text-2xl font-bold mb-3 text-emerald-900 underline decoration-emerald-200">The Path to Prana: A Vision for Vitality 🌿</h4>
+                            <p class="text-stone-700 italic leading-relaxed text-lg mb-4">
+                                "PranaMitra is a dedicated platform designed to help you maintain and build a properly balanced, healthy life. We aspire to bring a life of holistic health to you."
+                            </p>
+                            <p class="text-stone-700 leading-relaxed"><i>Our mission is clear: <strong>We aspire to bring a life of holistic health to you.</strong> Whether you are seeking physical strength or mental clarity, we are here to plan your journey. Let us grow healthy together.</i></p>
+                            <div class="mt-6">
+                                <p class="font-bold text-xl text-emerald-700">Yugandhar Pallapothula</p>
+                                <p class="text-xs text-stone-500 uppercase tracking-[0.2em] font-bold">Founder & Health Visionary</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,20 +117,17 @@
 
             <section id="members-page" class="page-content hidden">
                 <div class="max-w-7xl mx-auto px-6">
-                    <button onclick="showPage('home')" class="mb-8 text-emerald-600 font-bold flex items-center gap-2">
+                    <button onclick="showPage('home')" class="mb-8 text-emerald-600 font-bold flex items-center gap-2 hover:translate-x-[-4px] transition">
                         <i data-lucide="arrow-left"></i> Back to Home
                     </button>
-                    <div class="text-center mb-12">
-                        <h2 class="text-4xl font-bold text-emerald-900 mb-2">Yoga Community</h2>
-                    </div>
-                    <div id="members-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        </div>
+                    <h2 class="text-4xl font-bold text-emerald-900 mb-12 text-center">Our Community</h2>
+                    <div id="members-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
                 </div>
             </section>
 
             <section id="content-page" class="page-content hidden">
                 <div class="max-w-7xl mx-auto px-6">
-                    <button onclick="showPage('home')" class="mb-8 text-emerald-600 font-bold flex items-center gap-2">
+                    <button onclick="showPage('home')" class="mb-8 text-emerald-600 font-bold flex items-center gap-2 hover:translate-x-[-4px] transition">
                         <i data-lucide="arrow-left"></i> Back
                     </button>
                     <h2 id="page-title" class="text-4xl font-bold mb-8 text-emerald-900">Practices</h2>
@@ -135,22 +136,50 @@
             </section>
 
             <section id="live-page" class="page-content hidden">
-                <div class="max-w-7xl mx-auto px-6 text-center py-20">
-                    <div class="text-8xl mb-6">🚀</div>
-                    <h2 class="text-5xl font-bold mb-4">Live Classes Coming Soon</h2>
-                    <button onclick="showPage('home')" class="mt-8 bg-emerald-600 text-white px-8 py-3 rounded-full font-bold">Get Notified</button>
+                <div class="max-w-7xl mx-auto px-6 text-center py-24">
+                    <div class="text-8xl mb-8">🚀</div>
+                    <h2 class="text-5xl font-bold mb-6 text-emerald-900">Digital Studio Launching!</h2>
+                    <p class="text-xl text-stone-600 max-w-xl mx-auto">We are currently preparing our live stream equipment to bring Guruji's wisdom directly to your screen.</p>
+                    <button onclick="showPage('home')" class="mt-10 bg-emerald-600 text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition">Return to Home</button>
                 </div>
             </section>
         </main>
 
-        <footer class="border-t border-stone-200 py-10 text-center">
-            <p class="text-stone-500 font-medium">Stay Healthy, Stay Mindful 🌈</p>
-            <p class="text-sm text-stone-400 mt-2">© 2026 PranaMitra Yoga Studio.</p>
+        <footer class="border-t border-stone-200 py-12 text-center bg-white">
+            <p class="text-emerald-700 font-bold text-lg mb-2">Stay Healthy, Stay Mindful 🌈</p>
+            <p class="text-sm text-stone-400 font-medium">© 2026 PranaMitra Yoga Studio. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
-        // GOOGLE AUTH LOGIC
+        // DATA STORAGE
+        const contentData = {
+            beginner: [
+                { name: "Tadasana (Mountain Pose)", benefits: "Improves posture and strengthens thighs.", usage: "Stand tall with feet together, firming your leg muscles.", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500", video: "#" },
+                { name: "Vrikshasana (Tree Pose)", benefits: "Enhances balance and focus.", usage: "Shift weight to one leg, place other foot on inner thigh.", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500", video: "#" }
+            ],
+            advanced: [
+                { name: "Sirsasana (Headstand)", benefits: "Increases blood flow to the brain and strengthens core.", usage: "Balance your weight on your forearms and head.", img: "https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=500", video: "#" },
+                { name: "Bakasana (Crow Pose)", benefits: "Massive arm and wrist strength builder.", usage: "Tuck knees into armpits and lean forward to balance.", img: "https://images.unsplash.com/photo-1573591122948-f4838ce41f9d?w=500", video: "#" }
+            ],
+            pranayama: [
+                { name: "Anulom Vilom", benefits: "Purifies the nervous system and relieves stress.", usage: "Alternate nostril breathing in Sukhasana.", img: "https://images.unsplash.com/photo-1506126279646-a66034b3e186?w=500", video: "#" },
+                { name: "Kapalbhati", benefits: "Improves digestion and lung capacity.", usage: "Forceful exhalations with passive inhalations.", img: "https://images.unsplash.com/photo-1510894347713-fc3ad6cb03a2?w=500", video: "#" }
+            ]
+        };
+
+        const members = [
+            { name: "Dhanunjaya Rao Garu", role: "Guruji" },
+            { name: "Vivek Manikanta", role: "Practitioner" },
+            { name: "Aravind Babu", role: "Practitioner" },
+            { name: "Surya Pavan Teja", role: "Practitioner" },
+            { name: "Mukesh Boligala", role: "Practitioner" },
+            { name: "Yugandhar Pallapothula", role: "Founder" },
+            { name: "Sumanth Mekala", role: "Member" },
+            { name: "Aravind Chebrolu", role: "Member" }
+        ];
+
+        // INITIALIZE GOOGLE AUTH
         window.onload = function () {
             google.accounts.id.initialize({
                 client_id: "810048906410-6tr7i2ei41mlu5av80n4u4fmpn6rs1pp.apps.googleusercontent.com",
@@ -162,67 +191,60 @@
         function handleCredentialResponse(response) {
             document.getElementById('login-gate').style.display = 'none';
             document.getElementById('main-wrapper').style.display = 'block';
-            renderMembers(); // Load members after login
+            renderMembers();
             lucide.createIcons();
         }
 
+        // NAVIGATION LOGIC
         function toggleMenu() {
             document.getElementById('mobile-menu').classList.toggle('active');
-        }
-
-        // DATA & RENDERING
-        const contentData = {
-            beginner: [
-                { name: "Tadasana", benefits: "Posture improvement", usage: "Stand tall", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400", video: "#" },
-                { name: "Vrikshasana", benefits: "Balance", usage: "One leg balance", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400", video: "#" }
-            ],
-            advanced: [],
-            pranayama: []
-        };
-
-        const members = [
-            { name: "Dhanunjaya Rao Garu", role: "Guruji" },
-            { name: "Vivek Manikanta", role: "Daily Practitioner" },
-            { name: "Aravind Babu", role: "Daily Practitioner" },
-            { name: "Surya Pavan Teja", role: "Daily Practitioner" },
-            { name: "Mukesh Boligala", role: "Daily Practitioner" },
-            { name: "Yugandhar Pallapothula", role: "Member" },
-            { name: "Sumanth Mekhala", role: "Member" },
-            { name: "Aravind Chebrolu", role: "Member" }
-        ];
-
-        function renderMembers() {
-            const grid = document.getElementById('members-grid');
-            grid.innerHTML = members.map(m => `
-                <div class="bg-white p-6 rounded-2xl border border-stone-100 text-center shadow-sm">
-                    <img src="https://api.dicebear.com/7.x/initials/svg?seed=${m.name}" class="w-16 h-16 mx-auto rounded-full mb-4">
-                    <h4 class="font-bold text-sm text-stone-800">${m.name}</h4>
-                    <p class="text-[10px] text-emerald-600 font-bold uppercase">${m.role}</p>
-                </div>
-            `).join('');
         }
 
         function showPage(pageId) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(pageId + '-page') || document.getElementById('content-page');
             target.classList.remove('hidden');
-            if(contentData[pageId]) renderAsanas(contentData[pageId], pageId);
+            
+            if (contentData[pageId]) {
+                renderAsanas(contentData[pageId], pageId);
+            }
             window.scrollTo(0, 0);
         }
 
         function renderAsanas(data, category) {
             const grid = document.getElementById('asana-grid');
-            document.getElementById('page-title').innerText = category.toUpperCase();
+            document.getElementById('page-title').innerText = category.toUpperCase() + " PRACTICES";
             grid.innerHTML = data.map(item => `
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100">
-                    <img src="${item.img}" class="w-full h-48 object-cover">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-100 hover:shadow-md transition duration-300">
+                    <img src="${item.img}" class="w-full h-52 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">${item.name}</h3>
-                        <p class="text-sm text-stone-600 mb-4">${item.benefits}</p>
-                        <a href="${item.video}" class="block text-center bg-emerald-50 text-emerald-700 py-2 rounded-xl font-bold">Watch Tutorial</a>
+                        <h3 class="text-xl font-bold mb-2 text-emerald-900">${item.name}</h3>
+                        <p class="text-sm text-stone-600 mb-4 line-clamp-2">${item.benefits}</p>
+                        <a href="${item.video}" class="block text-center bg-emerald-50 text-emerald-700 py-2.5 rounded-xl font-bold hover:bg-emerald-600 hover:text-white transition">Watch Tutorial</a>
                     </div>
                 </div>
             `).join('');
+            lucide.createIcons();
+        }
+
+        function renderMembers() {
+            const grid = document.getElementById('members-grid');
+            grid.innerHTML = members.map(m => `
+                <div class="bg-white p-6 rounded-2xl border border-stone-100 text-center shadow-sm">
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed=${m.name}" class="w-16 h-16 mx-auto rounded-full mb-4 border-2 border-emerald-100">
+                    <h4 class="font-bold text-sm text-stone-800">${m.name}</h4>
+                    <p class="text-[10px] text-emerald-600 font-bold uppercase tracking-wider mt-1">${m.role}</p>
+                </div>
+            `).join('');
+        }
+
+        function handleSearch(query) {
+            // Simplified search - filters based on current visible category
+            const currentTitle = document.getElementById('page-title').innerText.toLowerCase().split(' ')[0];
+            if (contentData[currentTitle]) {
+                const filtered = contentData[currentTitle].filter(a => a.name.toLowerCase().includes(query.toLowerCase()));
+                renderAsanas(filtered, currentTitle);
+            }
         }
 
         lucide.createIcons();
